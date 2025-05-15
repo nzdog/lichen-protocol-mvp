@@ -7,15 +7,13 @@ const ROLE_STORAGE_KEY = 'lichen-user-role';
 
 export function useRole() {
   const [role, setRole] = useState<Role | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Load role from localStorage on mount
-    const savedRole = localStorage.getItem(ROLE_STORAGE_KEY);
+    // Initialize role from localStorage if it exists
+    const savedRole = localStorage.getItem(ROLE_STORAGE_KEY) as Role | null;
     if (savedRole) {
-      setRole(savedRole as Role);
+      setRole(savedRole);
     }
-    setIsLoading(false);
   }, []);
 
   const updateRole = (newRole: Role) => {
@@ -30,7 +28,6 @@ export function useRole() {
 
   return {
     role,
-    isLoading,
     updateRole,
     clearRole,
   };

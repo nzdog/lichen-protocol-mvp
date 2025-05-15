@@ -1,16 +1,18 @@
-export type Role = 'CEO' | 'CTO' | 'Co-Founder' | 'Team Member';
+export type Role = 'CEO' | 'CTO' | 'CO_FOUNDER' | 'TEAM_MEMBER';
 
-export interface RoleData {
-  id: Role;
-  title: string;
-  description: string;
+export interface Question {
+  id: string;
+  text: string;
+  dimension: 'clarity' | 'alignment' | 'rhythm' | 'leadership';
 }
 
-export interface DiagnosticScore {
+export interface DiagnosticScores {
   clarity: number;
   alignment: number;
   rhythm: number;
   leadership: number;
+  role: Role;
+  timestamp: string;
 }
 
 export interface Outcomes {
@@ -29,7 +31,14 @@ export interface Protocol {
   id: string;
   title: string;
   purpose: string;
+  tags: string[];
+  whyChosen?: string;
   outcomes: Outcomes;
   threads: ProtocolThread[];
-  tags: string[];
+}
+
+export interface RoleData {
+  id: Role;
+  title: string;
+  description: string;
 } 

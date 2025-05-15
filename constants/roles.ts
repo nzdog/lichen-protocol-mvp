@@ -12,12 +12,12 @@ export const ROLES: RoleData[] = [
     description: 'Driving technical strategy and innovation',
   },
   {
-    id: 'Co-Founder',
+    id: 'CO_FOUNDER',
     title: 'Co-Founder',
     description: 'Partnering in building and growing the organization',
   },
   {
-    id: 'Team Member',
+    id: 'TEAM_MEMBER',
     title: 'Team Member',
     description: 'Contributing to the organization\'s success through specialized skills',
   },

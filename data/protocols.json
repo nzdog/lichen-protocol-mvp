@@ -1,0 +1,39 @@
+{
+  "protocols": [
+    {
+      "id": "vision-alignment",
+      "title": "Vision Alignment Protocol",
+      "purpose": "Align the team around a clear and compelling vision for the future",
+      "tags": ["clarity", "alignment"],
+      "whyChosen": ""
+    },
+    {
+      "id": "leadership-development",
+      "title": "Leadership Development Protocol",
+      "purpose": "Develop strong leadership capabilities across the organization",
+      "tags": ["leadership", "clarity"],
+      "whyChosen": ""
+    },
+    {
+      "id": "team-rhythm",
+      "title": "Team Rhythm Protocol",
+      "purpose": "Establish effective working patterns and communication flows",
+      "tags": ["rhythm", "alignment"],
+      "whyChosen": ""
+    },
+    {
+      "id": "decision-making",
+      "title": "Decision Making Protocol",
+      "purpose": "Create clear and efficient decision-making processes",
+      "tags": ["clarity", "rhythm"],
+      "whyChosen": ""
+    },
+    {
+      "id": "feedback-loop",
+      "title": "Feedback Loop Protocol",
+      "purpose": "Build strong feedback mechanisms for continuous improvement",
+      "tags": ["leadership", "rhythm"],
+      "whyChosen": ""
+    }
+  ]
+} 

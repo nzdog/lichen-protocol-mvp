@@ -1,12 +1,19 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { ROLES } from '../constants/roles';
 import { useRole } from '../hooks/useRole';
 import type { Role } from '../types';
 
 export function RoleSelection() {
-  const { role, updateRole } = useRole();
+  const router = useRouter();
+  const { updateRole } = useRole();
+
+  const handleRoleSelect = (roleId: Role) => {
+    updateRole(roleId);
+    router.refresh(); // Force a refresh of the page to show the welcome back screen
+  };
 
   return (
     <div className="max-w-4xl mx-auto py-12 px-4">
@@ -17,12 +24,8 @@ export function RoleSelection() {
         {ROLES.map((roleData) => (
           <button
             key={roleData.id}
-            onClick={() => updateRole(roleData.id)}
-            className={`p-6 rounded-lg border-2 text-left transition-all ${
-              role === roleData.id
-                ? 'border-primary bg-primary/5'
-                : 'border-gray-200 hover:border-primary/50'
-            }`}
+            onClick={() => handleRoleSelect(roleData.id)}
+            className="p-6 rounded-lg border-2 border-gray-200 hover:border-gray-300 text-left transition-all"
           >
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
               {roleData.title}
