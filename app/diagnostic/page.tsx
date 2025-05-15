@@ -5,14 +5,21 @@ import { useRouter } from 'next/navigation';
 import { useRole } from '../../hooks/useRole';
 import { DiagnosticForm } from '../../components/DiagnosticForm';
 import { Recommendations } from '../../components/Recommendations';
+import { DiagnosticResultsSummary } from '../../components/DiagnosticResultsSummary';
 import { ROLES } from '../../constants/roles';
-import type { Protocol } from '../../types';
+import type { Protocol, DiagnosticScores } from '../../types';
 
 export default function DiagnosticPage() {
   const router = useRouter();
   const { role } = useRole();
   const [mounted, setMounted] = useState(false);
-  const [recommendations, setRecommendations] = useState<(Protocol & { whyChosen: string })[]>([]);
+  const [diagnosticState, setDiagnosticState] = useState<{
+    recommendations: (Protocol & { whyChosen: string })[];
+    scores: DiagnosticScores | null;
+  }>({
+    recommendations: [],
+    scores: null
+  });
 
   useEffect(() => {
     setMounted(true);
@@ -33,10 +40,24 @@ export default function DiagnosticPage() {
 
   const roleData = ROLES.find(r => r.id === role);
 
+  const handleDiagnosticComplete = (
+    protocols: (Protocol & { whyChosen: string })[],
+    scores: DiagnosticScores
+  ) => {
+    console.log('Handling diagnostic completion');
+    console.log('Protocols:', protocols);
+    console.log('Scores:', scores);
+    
+    setDiagnosticState({
+      recommendations: protocols,
+      scores: scores
+    });
+  };
+
   return (
     <main className="min-h-screen bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 py-12">
-        {recommendations.length === 0 ? (
+        {diagnosticState.recommendations.length === 0 ? (
           <>
             <div className="mb-12">
               <div className="text-sm font-medium text-gray-500 mb-2">
@@ -53,11 +74,16 @@ export default function DiagnosticPage() {
             </div>
             <DiagnosticForm
               role={role}
-              onComplete={(protocols) => setRecommendations(protocols)}
+              onComplete={handleDiagnosticComplete}
             />
           </>
         ) : (
-          <Recommendations protocols={recommendations} />
+          <div className="space-y-12">
+            {diagnosticState.scores && (
+              <DiagnosticResultsSummary scores={diagnosticState.scores} />
+            )}
+            <Recommendations protocols={diagnosticState.recommendations} />
+          </div>
         )}
       </div>
     </main>

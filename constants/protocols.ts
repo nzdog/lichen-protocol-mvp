@@ -5,7 +5,7 @@ export const PROTOCOLS: Protocol[] = [
     id: 'vision-alignment',
     title: 'Vision Alignment Protocol',
     purpose: 'Align your team around a clear and compelling vision',
-    tags: ['Vision', 'Leadership', 'Alignment'],
+    tags: ['clarity', 'leadership', 'alignment'],
     outcomes: {
       poor: 'Team members have different interpretations of the vision and work towards conflicting goals',
       expected: 'Team members understand and can articulate the vision consistently',
@@ -36,7 +36,7 @@ export const PROTOCOLS: Protocol[] = [
     id: 'tech-roadmap',
     title: 'Technical Roadmap Protocol',
     purpose: 'Create a clear technical strategy and execution plan',
-    tags: ['Technical', 'Strategy', 'Planning'],
+    tags: ['clarity', 'alignment', 'rhythm'],
     outcomes: {
       poor: 'Technical decisions are made ad-hoc without clear direction',
       expected: 'Technical roadmap guides major technical decisions',
@@ -67,7 +67,7 @@ export const PROTOCOLS: Protocol[] = [
     id: 'team-rhythm',
     title: 'Team Rhythm Protocol',
     purpose: 'Establish effective team workflows and communication patterns',
-    tags: ['Workflow', 'Communication', 'Productivity'],
+    tags: ['rhythm', 'alignment', 'leadership'],
     outcomes: {
       poor: 'Team workflows are chaotic and inefficient',
       expected: 'Team workflows are consistent and productive',
@@ -98,7 +98,7 @@ export const PROTOCOLS: Protocol[] = [
     id: 'leadership-development',
     title: 'Leadership Development Protocol',
     purpose: 'Develop key leadership skills and capabilities',
-    tags: ['Leadership', 'Development', 'Skills'],
+    tags: ['leadership', 'clarity', 'alignment'],
     outcomes: {
       poor: 'Leadership capabilities are underdeveloped',
       expected: 'Leadership capabilities meet team needs',

@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
-import type { Question, Role, DiagnosticScores } from '../types';
+import type { Question, Role, DiagnosticScores, Protocol } from '../types';
 import questionsByRole from '../app/data/staticQuestionsByRole';
 import { calculateScores, storeDiagnosticScores } from '../utils/scoringLogic';
 import { recommendProtocols, generateWhyChosen } from '../utils/recommendProtocols';
 
 interface DiagnosticFormProps {
   role: Role;
-  onComplete: (recommendations: any) => void;
+  onComplete: (recommendations: (Protocol & { whyChosen: string })[], scores: DiagnosticScores) => void;
 }
 
 interface Response {
@@ -19,6 +19,7 @@ interface Response {
 export function DiagnosticForm({ role, onComplete }: DiagnosticFormProps) {
   const questions = questionsByRole[role] || [];
   const [responses, setResponses] = useState<Response[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   // Early return if no questions are found for the role
   if (!questions.length) {
@@ -30,24 +31,55 @@ export function DiagnosticForm({ role, onComplete }: DiagnosticFormProps) {
   }
 
   const handleScoreChange = (questionId: string, score: number) => {
-    setResponses((prev) => {
-      const existing = prev.find((r) => r.questionId === questionId);
-      if (existing) {
-        return prev.map((r) => (r.questionId === questionId ? { ...r, score } : r));
-      }
-      return [...prev, { questionId, score }];
-    });
+    try {
+      setResponses((prev) => {
+        const existing = prev.find((r) => r.questionId === questionId);
+        if (existing) {
+          return prev.map((r) => (r.questionId === questionId ? { ...r, score } : r));
+        }
+        return [...prev, { questionId, score }];
+      });
+    } catch (err) {
+      console.error('Error updating score:', err);
+      setError('Failed to update score');
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const scores = calculateScores(responses, questions, role);
-    storeDiagnosticScores(scores);
-    const recommendations = recommendProtocols(scores).map((protocol) => ({
-      ...protocol,
-      whyChosen: generateWhyChosen(protocol, scores),
-    }));
-    onComplete(recommendations);
+    setError(null);
+    
+    try {
+      console.log('Form submitted');
+      console.log('Role:', role);
+      console.log('Questions:', questions);
+      
+      // Initialize all questions with default score of 3 if not answered
+      const allResponses = questions.map(question => {
+        const existingResponse = responses.find(r => r.questionId === question.id);
+        return existingResponse || { questionId: question.id, score: 3 };
+      });
+      
+      console.log('All responses:', allResponses);
+
+      const scores = calculateScores(allResponses, questions, role);
+      console.log('Calculated scores:', scores);
+      
+      storeDiagnosticScores(scores);
+      console.log('Scores stored in localStorage');
+
+      const recommendations = recommendProtocols(scores).map((protocol) => ({
+        ...protocol,
+        whyChosen: generateWhyChosen(protocol, scores),
+      }));
+      console.log('Generated recommendations:', recommendations);
+      
+      onComplete(recommendations, scores);
+      console.log('onComplete callback executed');
+    } catch (err) {
+      console.error('Error submitting form:', err);
+      setError(err instanceof Error ? err.message : 'An error occurred while submitting the form');
+    }
   };
 
   const getDimensionLabel = (dimension: string) => {
@@ -56,6 +88,12 @@ export function DiagnosticForm({ role, onComplete }: DiagnosticFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
+          {error}
+        </div>
+      )}
+      
       {/* Group questions by dimension */}
       {['clarity', 'alignment', 'rhythm', 'leadership'].map((dimension) => {
         const dimensionQuestions = questions.filter((q) => q.dimension === dimension);
@@ -107,7 +145,6 @@ export function DiagnosticForm({ role, onComplete }: DiagnosticFormProps) {
         <button
           type="submit"
           className="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
-          disabled={responses.length < questions.length}
         >
           Complete Diagnostic
         </button>
