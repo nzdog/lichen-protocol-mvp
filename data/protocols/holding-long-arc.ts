@@ -1,0 +1,60 @@
+import { Protocol } from '../../types';
+
+export const holdingLongArcProtocol: Protocol = {
+  id: "holding-the-long-arc-vision",
+  title: "Holding the Long Arc Vision",
+  purpose: "To stay in right relationship with the long-term purpose of your startup. This protocol keeps the larger arc visible—so that short-term actions stay aligned, and the deeper why continues to shape the path.",
+  outcomes: {
+    poor: "The long-term vision is forgotten in the rush of daily work. We make decisions based on urgency or trend rather than what we came here to build.",
+    expected: "The long arc is revisited regularly and used as a compass. Strategy unfolds in rhythm, not reactivity.",
+    excellent: "The vision lives in the field. Your startup becomes clearer, stronger, and more trustworthy over time. Even short-term actions feel part of a sacred pattern."
+  },
+  threads: [
+    {
+      title: "Remember the Why",
+      purpose: "To reconnect with the origin spark and deeper purpose behind the work.",
+      outcomes: {
+        poor: "We work on autopilot, reacting to needs, metrics, or tasks without context.",
+        expected: "We pause to recall: What did we set out to do? What felt sacred about this?",
+        excellent: "The original spark becomes an active force. It animates strategy and strengthens the whole field."
+      }
+    },
+    {
+      title: "Revisit the Vision in Real Time",
+      purpose: "To let the vision evolve with us—not become static or abstract.",
+      outcomes: {
+        poor: "The vision is frozen in time or hidden in old decks and documents.",
+        expected: "We speak it aloud, reshape it, and share updates as your startup grows.",
+        excellent: "The vision stays alive. It moves with us. It holds clarity without rigidity."
+      }
+    },
+    {
+      title: "Align Strategy to Arc",
+      purpose: "To use the long arc to guide decisions and prioritization.",
+      outcomes: {
+        poor: "We chase opportunities or shift focus without checking alignment.",
+        expected: "We ask: Does this serve the arc? Does it deepen the story we're here to tell?",
+        excellent: "Every key move strengthens coherence. The path becomes clearer with each choice."
+      }
+    },
+    {
+      title: "Let the Arc Shape Our Rhythm",
+      purpose: "To pace ourselves in relation to the true scale of what we're building.",
+      outcomes: {
+        poor: "We burn out trying to compress a long story into a single season.",
+        expected: "We honour the timing of the work. Some things take years—and that's right.",
+        excellent: "The vision anchors our tempo. We move with patience, power, and trust."
+      }
+    },
+    {
+      title: "Track What's Becoming Clearer",
+      purpose: "To notice how the long arc is revealing itself through action.",
+      outcomes: {
+        poor: "We treat the vision as distant or theoretical, disconnected from daily work.",
+        expected: "We reflect on: What did we learn this quarter about the long arc?",
+        excellent: "Vision becomes embodied. We walk it into existence, one step at a time."
+      }
+    }
+  ],
+  tags: ["vision", "clarity", "CEO", "strategy", "rhythm", "long-term"]
+}; 
